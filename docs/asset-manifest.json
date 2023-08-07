@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/holdenc20.github.io/static/css/main.7885c767.css",
+    "main.js": "/holdenc20.github.io/static/js/main.45042dc5.js",
+    "index.html": "/holdenc20.github.io/index.html",
+    "main.7885c767.css.map": "/holdenc20.github.io/static/css/main.7885c767.css.map",
+    "main.45042dc5.js.map": "/holdenc20.github.io/static/js/main.45042dc5.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7885c767.css",
+    "static/js/main.45042dc5.js"
+  ]
+}

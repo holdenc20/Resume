@@ -1,0 +1,24 @@
+.nav {
+    display: flex;
+    padding: 1rem;
+    justify-content: center;
+  }
+  
+  .nav-link {
+    color: gray;
+    text-decoration: none;
+    margin-right: 1rem;
+    padding: 0.5rem 1rem;
+    font-family: Nexa;
+    font-size: 1.2rem;
+  }
+  
+  .nav-link:hover {
+    text-decoration: underline;
+  }
+  
+  /* Apply styles to the active link */
+  .active {
+    text-decoration: underline;
+  }
+  
