@@ -2,7 +2,7 @@
   "name": "holdenc20.github.io",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://holdenc20.github.io/holdenc20.github.io/",
+  "homepage": "https://holdenc20.github.io/resume/",
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
