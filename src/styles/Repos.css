@@ -1,0 +1,25 @@
+.repos-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+  
+  .repo-tab {
+    padding: 10px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+  }
+  
+  .repo-tab.active {
+    background-color: #e0e0e0;
+  }
+  
+  .repo-content {
+    box-shadow: black 0px 0px 1px 0px;
+    padding: 3rem;
+    margin-top: 15px;
+    background-color: #f0f0f0;
+  }
+  

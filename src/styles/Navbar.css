@@ -1,16 +1,25 @@
+.navbar {
+    display: flex;
+    background-color: #f6f6f6;
+    box-shadow: #2a2a2a 0px 0px 10px;
+}
+
 .nav {
     display: flex;
     padding: 1rem;
-    justify-content: center;
+    align-items: center;
+    justify-content: right;
+    width: 100%;
+    padding-right: 10rem;
   }
   
   .nav-link {
-    color: gray;
+    color: #2a2a2a;
     text-decoration: none;
     margin-right: 1rem;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 3rem;
     font-family: Nexa;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
   }
   
   .nav-link:hover {
@@ -20,5 +29,13 @@
   /* Apply styles to the active link */
   .active {
     text-decoration: underline;
+  }
+
+  .logo {
+    padding: 1rem;
+    padding-left: 6rem;
+    width: 100px;
+    height: 100px;
+    margin-right: 1rem;
   }
   
