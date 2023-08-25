@@ -7,9 +7,14 @@ const Repo = ({ repo }) => {
 
   // Fetch README content for the repository
   const fetchReadmeContent = async () => {
-    try {
-      const response = await axios.get(repo.contents_url.replace('{+path}', 'README.md'));
-      const content = atob(response.data.content);
+    setImageUrls([]);
+      let content = "";
+      try {
+        const response = await axios.get(repo.contents_url.replace('{+path}', 'README.md'));
+        content = atob(response.data.content);
+      } catch (error) {
+        console.error("Error fetching README content - or doesn't have README:", error);
+      }
 
       // Check if the content has HTML tags or not
       const isHtml = content.trim().startsWith('<');
@@ -40,9 +45,6 @@ const Repo = ({ repo }) => {
         setReadmeContent(absoluteContent);
         setImageUrls(extractedImageUrls);
       }
-    } catch (error) {
-      console.error('Error fetching README content:', error);
-    }
   };
 
   useEffect(() => {
@@ -53,7 +55,7 @@ const Repo = ({ repo }) => {
     <div className='repo-content'>
       <h3>{repo.name}</h3>
       <p>{repo.description}</p>
-      <a href={repo.html_url}>View on GitHub</a>
+      <a href={repo.html_url} target='_blank'>View on GitHub</a>
       <div>
         <h4>README Content:</h4>
         {imageUrls.map((imageUrl, index) => (
@@ -62,7 +64,9 @@ const Repo = ({ repo }) => {
         {readmeContent.startsWith('<') ? (
           <div dangerouslySetInnerHTML={{ __html: readmeContent }} />
         ) : (
-          <pre>{readmeContent}</pre>
+          <div className='pre-container'>
+            <pre>{readmeContent}</pre>
+          </div>
         )}
       </div>
     </div>

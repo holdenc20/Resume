@@ -11,12 +11,21 @@ const Projects = () => {
 
 
   //fetches user data from github api
-  const fetchData = () => {
-    return fetch(`https://api.github.com/users/${githubUser}`)
-      .then((response) => response.json())
-      .then((data) => setGithubData(data));
+  const fetchData = async () => {
+    try {
+      const response = await fetch(`https://api.github.com/users/${githubUser}`);
+      if(!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const data = await response.json();
+      setGithubData(data);
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
   }
 
+  //fetches github user data
   useEffect(() => {
     fetchData();
   }, [])
@@ -27,20 +36,30 @@ const Projects = () => {
     let allRepos = [];
 
     while (true) {
-      const response = await fetch(`${githubData.repos_url}?per_page=100&page=${page}`);
-      const data = await response.json();
+      try {
+        const response = await fetch(`${githubData.repos_url}?per_page=100&page=${page}`);
+      
+        if(!response.ok) {
+          throw new Error("Network response was not ok");
+        }
 
-      if (data.length === 0) {
-        break;
+        const data = await response.json();
+
+        if (data.length === 0) {
+          break;
+        }
+  
+        allRepos = allRepos.concat(data);
+        page++;
+      } catch (error) {
+        console.error('Error fetching repos:', error);
       }
-
-      allRepos = allRepos.concat(data);
-      page++;
     }
 
     setRepos(allRepos);
   }
 
+  //fetching repo data after downloading the github user data
   useEffect(() => {
     if (githubData.login) {
       fetchAllRepos();
@@ -52,6 +71,7 @@ const Projects = () => {
     .filter((repo) => repo.stargazers_count > 0)
     .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
+  //handles the repo selection
   const handleRepoSelect = (repo) => {
     setSelectedRepo(repo);
   };
