@@ -36,26 +36,26 @@ function Skills () {
             let allRepos = [];
 
             while (true) {
-            try {
-                const response = await fetch(`${githubData.repos_url}?per_page=100&page=${page}`);
-            
-                if(!response.ok) {
-                throw new Error("Network response was not ok");
-                }
+              try {
+                  const response = await fetch(`${githubData.repos_url}?per_page=100&page=${page}`);
+              
+                  if(!response.ok) {
+                  throw new Error("Network response was not ok");
+                  }
 
-                const data = await response.json();
+                  const data = await response.json();
 
-                if (data.length === 0) {
-                break;
-                }
-        
-                allRepos = allRepos.concat(data);
-                page++;
-            } catch (error) {
-                console.error('Error fetching repos:', error);
+                  if (data.length === 0) {
+                    break;
+                  }
+                  
+                  allRepos = allRepos.concat(data);
+                  page++;
+              } catch (error) {
+                  console.error('Error fetching repos:', error);
+              }
             }
-            }
-
+            console.log(allRepos);
             setRepos(allRepos);
         }
 
@@ -64,20 +64,42 @@ function Skills () {
   }, [githubData])
 
   //function to get the languages data
-  const getLanguagesData = () => {
+  const getLanguagesData = async () => {
     const languages = {};
   
-    repos.forEach(repo => {
-      const { language, stargazers_count } = repo;
-      if (language) {
-        if (languages[language]) {
-          languages[language] += 1;
-        } else {
-          languages[language] = 1;
-        }
+    const fetchLanguageData = async (repo) => {
+      const languagesUrl = repo.languages_url;
+      return {};
+      if(!languagesUrl) {
+        return {};
       }
-    });
+      try {
+        const response = await fetch(languagesUrl);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      } catch (error) {
+        console.error('Error fetching languages:', error);
+        return {};
+      }
+    };
   
+    // Use Promise.all to fetch language data for all repos
+    //const languageDataPromises = repos.map(repo => fetchLanguageData(repo));
+    //const languageDataArray = await Promise.all(languageDataPromises);
+  
+    // Aggregate the language data
+    //languageDataArray.forEach(data => {
+    //  Object.keys(data).forEach(key => {
+    //    if (languages[key]) {
+    //      languages[key] += data[key];
+     //   } else {
+    //      languages[key] = data[key];
+    //    }
+    //  });
+   // });
+    return{};
     return {
       labels: Object.keys(languages),
       datasets: [
